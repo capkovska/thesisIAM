@@ -168,6 +168,52 @@
 
 ---
 
+## TC-M-03: Mover with a manually managed application in the target role
+
+**Identity:** EMP-0004 (Sales dept — includes LegacyApp-Manual in system class)  
+**Trigger:** HRIS webhook, eventSource: hris  
+**Preconditions:** Active user being transferred to a role whose access mapping includes one manual system alongside SCIM-connected systems
+
+**Steps:**
+1. Submit Mover payload for a user whose target department mapping includes one manual system in ilm_system_class
+2. Wait for flow execution to complete
+
+**Expected outcomes:**
+- [ ] SH-5 calculates delta normally
+- [ ] SCIM-connected groups added via UTL-4; Okta provisioning engine propagates changes automatically
+- [ ] SH-6 generates one ITSM provisioning task for the manual system
+- [ ] Task body contains displayName, employeeNumber, txId, required action, and due date
+- [ ] ilm_pendingTasks = true on Okta user
+- [ ] Transaction status = Pending-manual-tasks
+- [ ] When ITSM task closed: SH-1a receives callback; transaction transitions to Completed
+
+**FR coverage:** FR2.4
+
+---
+
+## TC-M-04: Mover initiated via ITSM, not HRIS
+
+**Identity:** EMP-0004 (any active user)  
+**Trigger:** ITSM webhook, eventSource: itsm  
+**Preconditions:** Active user; payload carries explicit accessChanges object specifying additions and removals
+
+**Steps:**
+1. Submit Mover payload via ITSM webhook trigger with eventSource: itsm
+2. Include explicit accessChanges.add and accessChanges.remove lists in the payload
+3. Wait for flow execution to complete
+
+**Expected outcomes:**
+- [ ] Flow accepts ITSM-initiated payload and processes through the same steps as HRIS-triggered path
+- [ ] eventSource field written as itsm in ilm_tx_log row
+- [ ] SH-4 validates and normalises payload without errors
+- [ ] Explicit accessChanges additions and removals applied correctly via UTL-4
+- [ ] Evidence records produced in the same format as for the HRIS path
+- [ ] Transaction closes as Completed
+
+**FR coverage:** FR2.1
+
+---
+
 ## TC-M-05: Time-bound access grant
 
 **Identity:** EMP-0009 (flags.expiryDate set 30 days from today)
@@ -216,6 +262,29 @@
 
 ---
 
+## TC-L-03: Leaver with manually managed applications
+
+**Identity:** EMP-0013 (has access to two manually managed systems in ilm_system_class)  
+**Trigger:** HRIS webhook, eventSource: hris, endDate = today  
+**Preconditions:** Active user with SCIM-connected and manual system access
+
+**Steps:**
+1. Submit Leaver payload for user with two manual systems in their access profile
+2. Wait for full flow execution
+
+**Expected outcomes:**
+- [ ] Steps L-3 through L-5 execute as in TC-L-01 (suspension, session revocation, SCIM group removal)
+- [ ] Step L-6: SH-6 generates one ITSM deprovisioning task per manual system (two tasks total)
+- [ ] Each task contains displayName, employeeNumber, txId, system name, and due date from deprovisionSla
+- [ ] Task IDs stored in itsm_tasks field of ilm_tx_log row
+- [ ] ilm_pendingTasks = true on Okta user
+- [ ] Transaction status = Pending-manual-tasks
+- [ ] When both ITSM tasks closed: transaction transitions to Completed
+
+**FR coverage:** FR3.4
+
+---
+
 ## TC-L-04: Critical system ITSM task overdue
 
 **Identity:** EMP-0013 (has ERP-Finance-Posting access - Critical)
@@ -232,6 +301,28 @@
 - [ ] Escalation noted in transaction record
 
 **FR coverage:** FR3.6
+
+---
+
+## TC-L-05: Contractor end-of-engagement, scheduled Leaver execution
+
+**Identity:** EMP-0005 (contractor from TC-J-05, endDate reached)  
+**Trigger:** Scheduled flow registered at contractor onboarding — no new payload submitted  
+**Preconditions:** Contractor identity active; scheduled Leaver trigger registered at onboarding time
+
+**Steps:**
+1. Allow scheduled trigger to fire on configured endDate (or manually advance for test purposes)
+2. Observe flow execution without submitting any new payload
+
+**Expected outcomes:**
+- [ ] Scheduled flow fires within 5 minutes of configured endDate
+- [ ] Full Leaver sequence executes in same order as TC-L-01 (suspension first, then session revocation, group removal, ITSM task generation, deactivation)
+- [ ] ilm_tx_log row carries eventSource = scheduled
+- [ ] Original contractor onboarding txId referenced in the transaction record
+- [ ] ilm_exceptions entry for contractor preserved (not removed by Leaver flow) — audit trail intact
+- [ ] Transaction closes as Completed or Pending-manual-tasks depending on manual systems
+
+**FR coverage:** FR5.1
 
 ---
 
