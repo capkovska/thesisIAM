@@ -1,0 +1,36 @@
+[
+  {
+    "_comment": "ilm_exceptions — Exception registry. Holds active exceptions that override normal routing logic. Pre-populated with examples using synthetic data.",
+    "_version": "1.0.0"
+  },
+  {
+    "_example": "Contractor with scheduled end date",
+    "employeeNumber": "EMP-0009",
+    "exceptionType": "contractor",
+    "expiryDate": "2026-04-30",
+    "originalTxId": "txn-00000001",
+    "riskAccepted": false,
+    "approvedBy": "manager-emp0010",
+    "notes": "Fixed-term engagement. Leaver flow scheduled for expiryDate."
+  },
+  {
+    "_example": "VIP employee requiring enhanced handling",
+    "employeeNumber": "EMP-0020",
+    "exceptionType": "vip",
+    "expiryDate": null,
+    "originalTxId": "txn-00000002",
+    "riskAccepted": false,
+    "approvedBy": "ciso-user",
+    "notes": "Board member. All lifecycle actions require manager confirmation before execution."
+  },
+  {
+    "_example": "Break-glass access grant — time-limited",
+    "employeeNumber": "EMP-0015",
+    "exceptionType": "break-glass",
+    "expiryDate": "2026-01-15T18:00:00Z",
+    "originalTxId": "txn-00000003",
+    "riskAccepted": true,
+    "approvedBy": "security-ops-lead",
+    "notes": "Emergency access to production ERP for incident investigation. Auto-revoked at expiry."
+  }
+]
