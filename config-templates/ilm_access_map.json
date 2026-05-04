@@ -1,0 +1,51 @@
+[
+  {
+    "_comment": "ilm_access_map — Access mapping table. Key: department:employeeType. Populate with your organisation's departments and group names.",
+    "_version": "1.0.0"
+  },
+  {
+    "department": "Engineering",
+    "employeeType": "employee",
+    "baselineGroups": ["BL-Email","BL-Intranet","BL-ITSM-User","BL-MFA-Policy","BL-SSO-Portal","BL-HR-Portal"],
+    "packageGroups": ["PKG-B-DevTools","PKG-B-CloudConsole-Read","PKG-B-GitRepo-Member","PKG-B-CICD","PKG-B-Docs-Edit","PKG-B-Monitoring"],
+    "roleGroups": ["ROLE-Engineering-Developer"]
+  },
+  {
+    "department": "Engineering",
+    "employeeType": "contractor",
+    "baselineGroups": ["BL-Email","BL-ITSM-User","BL-MFA-Policy","BL-SSO-Portal"],
+    "packageGroups": ["PKG-B-GitRepo-Member","PKG-B-Docs-Edit"],
+    "roleGroups": []
+  },
+  {
+    "department": "Finance",
+    "employeeType": "employee",
+    "baselineGroups": ["BL-Email","BL-Intranet","BL-ITSM-User","BL-MFA-Policy","BL-SSO-Portal","BL-HR-Portal"],
+    "packageGroups": ["PKG-A-Docs-Edit","PKG-A-Analytics-View"],
+    "roleGroups": ["ROLE-Finance-ReadOnly"]
+  },
+  {
+    "department": "Sales",
+    "employeeType": "employee",
+    "baselineGroups": ["BL-Email","BL-Intranet","BL-ITSM-User","BL-MFA-Policy","BL-SSO-Portal","BL-HR-Portal"],
+    "packageGroups": ["PKG-A-CRM-User","PKG-A-Docs-Edit","PKG-A-Analytics-View","PKG-A-Telephony"],
+    "roleGroups": ["ROLE-Sales-CRMAdvanced"]
+  },
+  {
+    "department": "HR",
+    "employeeType": "employee",
+    "baselineGroups": ["BL-Email","BL-Intranet","BL-ITSM-User","BL-MFA-Policy","BL-SSO-Portal","BL-HR-Portal"],
+    "packageGroups": ["PKG-A-Docs-Edit","PKG-A-Analytics-View"],
+    "roleGroups": []
+  },
+  {
+    "department": "Legal",
+    "employeeType": "employee",
+    "baselineGroups": ["BL-Email","BL-Intranet","BL-ITSM-User","BL-MFA-Policy","BL-SSO-Portal","BL-HR-Portal"],
+    "packageGroups": ["PKG-A-Docs-Edit"],
+    "roleGroups": ["ROLE-Legal-DocControl"]
+  },
+  {
+    "_comment": "Add additional department:employeeType mappings below following the same structure."
+  }
+]
