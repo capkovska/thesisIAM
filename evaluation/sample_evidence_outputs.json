@@ -1,0 +1,86 @@
+{
+  "_comment": "Sample evidence outputs — v1.0.0. Synthetic data only. Represents the structure of ilm_evidence_archive rows for the three primary test scenarios.",
+
+  "joiner_evidence_EV_J_01_to_05": {
+    "txId": "txn-j-00000001",
+    "eventType": "joiner",
+    "eventSource": "hris",
+    "employeeNumber": "EMP-0001",
+    "status": "Completed",
+    "approvalRef": null,
+    "itsm_tasks": [],
+    "groupsAdded": [
+      "BL-Email", "BL-Intranet", "BL-ITSM-User", "BL-MFA-Policy", "BL-SSO-Portal", "BL-HR-Portal",
+      "PKG-B-DevTools", "PKG-B-CloudConsole-Read", "PKG-B-GitRepo-Member", "PKG-B-CICD", "PKG-B-Docs-Edit", "PKG-B-Monitoring",
+      "ROLE-Engineering-Developer"
+    ],
+    "groupsRemoved": [],
+    "errorDetail": null,
+    "createdAt": "2026-01-15T08:00:04Z",
+    "completedAt": "2026-01-15T08:00:22Z",
+    "elapsedSeconds": 18,
+    "evidenceRecords": {
+      "EV-J-01": {"type": "hris_payload", "source": "HRIS webhook", "receivedAt": "2026-01-15T08:00:04Z", "eventId": "hris-evt-00042"},
+      "EV-J-02": {"type": "okta_user_created", "source": "Okta System Log", "userId": "00u0001SYNTH0001", "login": "marta.kalnina@ilm-test.example", "createdAt": "2026-01-15T08:00:08Z"},
+      "EV-J-03": {"type": "baseline_group_assignment", "source": "Workflows execution", "groupsAssigned": 6, "completedAt": "2026-01-15T08:00:14Z"},
+      "EV-J-04": {"type": "approval_record", "applicable": false, "reason": "No High/Critical items in access set"},
+      "EV-J-05": {"type": "itsm_task_completion", "applicable": false, "reason": "No manual systems for Engineering dept"}
+    }
+  },
+
+  "mover_evidence_EV_M_01_to_04": {
+    "txId": "txn-m-00000007",
+    "eventType": "mover",
+    "eventSource": "hris",
+    "employeeNumber": "EMP-0007",
+    "status": "Completed",
+    "approvalRef": "itsm-approval-00089",
+    "itsm_tasks": [],
+    "groupsAdded": [
+      "PKG-B-DevTools", "PKG-B-CloudConsole-Read", "PKG-B-GitRepo-Member", "PKG-B-CICD", "PKG-B-Docs-Edit", "PKG-B-Monitoring",
+      "ROLE-Engineering-Developer"
+    ],
+    "groupsRemoved": [
+      "PKG-A-Docs-Edit", "PKG-A-Analytics-View",
+      "ROLE-Finance-ReadOnly"
+    ],
+    "retained": [],
+    "errorDetail": null,
+    "createdAt": "2026-02-03T10:14:01Z",
+    "completedAt": "2026-02-03T10:46:33Z",
+    "evidenceRecords": {
+      "EV-M-01": {"type": "hris_change_payload", "source": "HRIS webhook", "previousDepartment": "Finance", "newDepartment": "Engineering", "receivedAt": "2026-02-03T10:14:01Z"},
+      "EV-M-02": {"type": "access_delta", "source": "Workflows execution — SH-5", "toAdd": 7, "toRemove": 3, "retained": 0, "calculatedAt": "2026-02-03T10:14:06Z"},
+      "EV-M-03": {"type": "group_membership_change", "source": "Okta System Log", "removalsCompletedAt": "2026-02-03T10:44:12Z", "additionsCompletedAt": "2026-02-03T10:44:58Z"},
+      "EV-M-04": {"type": "old_access_revocation", "source": "Okta System Log + ilm_tx_log", "groupsRevoked": 3, "allRevokedBeforeNewAccessAdded": true}
+    }
+  },
+
+  "leaver_evidence_EV_L_01_to_05": {
+    "txId": "txn-l-00000011",
+    "eventType": "leaver",
+    "eventSource": "hris",
+    "employeeNumber": "EMP-0011",
+    "status": "Pending-manual-tasks",
+    "approvalRef": null,
+    "itsm_tasks": ["itsm-task-00201"],
+    "groupsAdded": [],
+    "groupsRemoved": [
+      "BL-Email", "BL-Intranet", "BL-ITSM-User", "BL-MFA-Policy", "BL-SSO-Portal", "BL-HR-Portal",
+      "PKG-B-DevTools", "PKG-B-GitRepo-Member", "PKG-B-CICD", "PKG-B-Docs-Edit", "PKG-B-Monitoring",
+      "ROLE-Engineering-Developer"
+    ],
+    "errorDetail": null,
+    "createdAt": "2026-01-31T17:00:03Z",
+    "suspendedAt": "2026-01-31T17:00:10Z",
+    "deactivatedAt": "2026-01-31T17:00:31Z",
+    "completedAt": null,
+    "evidenceRecords": {
+      "EV-L-01": {"type": "hris_termination_payload", "source": "HRIS webhook", "endDate": "2026-01-31", "receivedAt": "2026-01-31T17:00:03Z"},
+      "EV-L-02": {"type": "account_suspension", "source": "Okta System Log", "event": "user.lifecycle.suspend", "suspendedAt": "2026-01-31T17:00:10Z", "latencySeconds": 7},
+      "EV-L-03": {"type": "session_revocation", "source": "Okta System Log", "event": "user.session.end", "tokensRevoked": true, "revokedAt": "2026-01-31T17:00:14Z"},
+      "EV-L-04": {"type": "app_deprovisioning", "source": "Workflows execution + Okta System Log", "groupsRemoved": 11, "directAssignmentsRemoved": 0, "completedAt": "2026-01-31T17:00:28Z"},
+      "EV-L-05": {"type": "manual_app_itsm_task", "source": "ITSM API", "taskId": "itsm-task-00201", "system": "LegacyApp-Manual", "status": "open", "dueDate": "2026-02-01T17:00:00Z"}
+    }
+  }
+}
