@@ -1,6 +1,6 @@
 [
   {
-    "_meta": "synthetic_identities.json — v1.0.0. All identities are fictitious. Generated using deterministic pseudonymisation. No real personal data.",
+    "_meta": "synthetic_identities.json - v1.0.0. All identities are fictitious. Generated using deterministic pseudonymisation. No real personal data.",
     "_testCoverage": "Covers: standard joiner, re-hire, future start date, contractor, manual app path, VIP, department transfer, title-only change, time-bound access, same-day leaver, future leaver, critical system leaver, ITSM-initiated joiner, duplicate detection"
   },
   {
@@ -18,7 +18,7 @@
     "startDate": "2026-01-15",
     "endDate": null,
     "testScenario": "TC-J-01",
-    "testDescription": "Standard Joiner — HRIS trigger, Package B, no approval required"
+    "testDescription": "Standard Joiner - HRIS trigger, Package B, no approval required"
   },
   {
     "employeeNumber": "EMP-0002",
@@ -35,7 +35,7 @@
     "startDate": "2026-01-15",
     "endDate": null,
     "testScenario": "TC-J-01 (High-sensitivity variant)",
-    "testDescription": "Joiner — Finance dept, ERP-Finance-ReadOnly requires manager+owner approval"
+    "testDescription": "Joiner - Finance dept, ERP-Finance-ReadOnly requires manager+owner approval"
   },
   {
     "employeeNumber": "EMP-0003",
@@ -52,7 +52,7 @@
     "startDate": "2026-02-10",
     "endDate": null,
     "testScenario": "TC-J-03",
-    "testDescription": "Joiner — future start date, pre-provisioning path (Staged status)"
+    "testDescription": "Joiner - future start date, pre-provisioning path (Staged status)"
   },
   {
     "employeeNumber": "EMP-0004",
@@ -69,7 +69,7 @@
     "startDate": "2026-01-15",
     "endDate": null,
     "testScenario": "TC-J-04",
-    "testDescription": "Joiner — Sales dept with one manual system (LegacyApp-Manual), ITSM task generated"
+    "testDescription": "Joiner - Sales dept with one manual system (LegacyApp-Manual), ITSM task generated"
   },
   {
     "employeeNumber": "EMP-0005",
@@ -105,7 +105,7 @@
     "endDate": null,
     "flags": {"vip": true},
     "testScenario": "TC-J-06",
-    "testDescription": "VIP Joiner — all lifecycle actions require manager confirmation before execution"
+    "testDescription": "VIP Joiner - all lifecycle actions require manager confirmation before execution"
   },
   {
     "employeeNumber": "EMP-0007",
@@ -123,7 +123,7 @@
     "startDate": "2025-06-01",
     "endDate": null,
     "testScenario": "TC-M-01",
-    "testDescription": "Mover — Finance to Engineering, non-empty delta, High-sensitivity item requires manager+owner approval"
+    "testDescription": "Mover - Finance to Engineering, non-empty delta, High-sensitivity item requires manager+owner approval"
   },
   {
     "employeeNumber": "EMP-0008",
@@ -141,7 +141,7 @@
     "startDate": "2024-03-01",
     "endDate": null,
     "testScenario": "TC-M-02",
-    "testDescription": "Mover — title change only, empty delta expected, profile update only"
+    "testDescription": "Mover - title change only, empty delta expected, profile update only"
   },
   {
     "employeeNumber": "EMP-0009",
@@ -159,7 +159,7 @@
     "endDate": null,
     "flags": {"expiryDate": "2026-03-01"},
     "testScenario": "TC-M-05",
-    "testDescription": "Mover — time-bound project access grant, reversal scheduled for expiryDate"
+    "testDescription": "Mover - time-bound project access grant, reversal scheduled for expiryDate"
   },
   {
     "employeeNumber": "EMP-0010",
@@ -193,7 +193,7 @@
     "startDate": "2025-03-01",
     "endDate": "2026-01-31",
     "testScenario": "TC-L-01",
-    "testDescription": "Leaver — same-day termination, automated suspension path"
+    "testDescription": "Leaver - same-day termination, automated suspension path"
   },
   {
     "employeeNumber": "EMP-0012",
@@ -210,7 +210,7 @@
     "startDate": "2022-09-01",
     "endDate": "2026-03-15",
     "testScenario": "TC-L-02",
-    "testDescription": "Leaver — future end date, scheduled execution at endDate"
+    "testDescription": "Leaver - future end date, scheduled execution at endDate"
   },
   {
     "employeeNumber": "EMP-0013",
@@ -227,7 +227,7 @@
     "startDate": "2021-11-01",
     "endDate": "2026-02-01",
     "testScenario": "TC-L-04",
-    "testDescription": "Leaver — critical system (ERP-Finance-Posting) ITSM task overdue, SH-1b escalation triggered"
+    "testDescription": "Leaver - critical system (ERP-Finance-Posting) ITSM task overdue, SH-1b escalation triggered"
   },
   {
     "employeeNumber": "EMP-0014",
@@ -244,7 +244,7 @@
     "startDate": "2026-01-15",
     "endDate": null,
     "testScenario": "TC-J-05 (ITSM-initiated variant)",
-    "testDescription": "Joiner — ITSM-initiated (eventSource: itsm), HR dept"
+    "testDescription": "Joiner - ITSM-initiated (eventSource: itsm), HR dept"
   },
   {
     "employeeNumber": "EMP-0015",
@@ -261,7 +261,7 @@
     "startDate": "2024-07-01",
     "endDate": null,
     "testScenario": "TC-A-04",
-    "testDescription": "Break-glass — CloudConsole-Admin requested, Critical tier, manager+security approval, 4h expiry"
+    "testDescription": "Break-glass - CloudConsole-Admin requested, Critical tier, manager+security approval, 4h expiry"
   },
   {
     "employeeNumber": "EMP-0016",
@@ -278,7 +278,7 @@
     "startDate": "2023-01-15",
     "endDate": null,
     "testScenario": "TC-A-02",
-    "testDescription": "Approval flow — manager+owner, app owner rejects. Access item excluded; rest of transaction completes."
+    "testDescription": "Approval flow - manager+owner, app owner rejects. Access item excluded; rest of transaction completes."
   },
   {
     "employeeNumber": "EMP-0017",
@@ -295,7 +295,7 @@
     "startDate": "2026-01-20",
     "endDate": null,
     "testScenario": "TC-A-03",
-    "testDescription": "Approval flow — SLA breach, escalation policy: auto-reject. Item cancelled, transaction completes without it."
+    "testDescription": "Approval flow - SLA breach, escalation policy: auto-reject. Item cancelled, transaction completes without it."
   },
   {
     "employeeNumber": "EMP-0018",

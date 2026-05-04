@@ -9,9 +9,9 @@
 
 | Date | Changed by | Target | Change | Reason |
 |---|---|---|---|---|
-| 2026-01-15 | IAM Team | `ilm_access_map.json` | Initial population — Engineering, Finance, Sales, HR, Legal dept mappings | Artefact v1.0.0 release |
-| 2026-01-15 | IAM Team | `ilm_system_class.json` | Initial population — 9 systems classified | Artefact v1.0.0 release |
-| 2026-01-15 | IAM Team | `ilm_exceptions.json` | Initial population — example entries only (synthetic data) | Artefact v1.0.0 release |
+| 2026-01-15 | IAM Team | `ilm_access_map.json` | Initial population - Engineering, Finance, Sales, HR, Legal dept mappings | Artefact v1.0.0 release |
+| 2026-01-15 | IAM Team | `ilm_system_class.json` | Initial population - 9 systems classified | Artefact v1.0.0 release |
+| 2026-01-15 | IAM Team | `ilm_exceptions.json` | Initial population - example entries only (synthetic data) | Artefact v1.0.0 release |
 
 ---
 

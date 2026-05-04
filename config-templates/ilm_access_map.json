@@ -1,6 +1,6 @@
 [
   {
-    "_comment": "ilm_access_map — Access mapping table. Key: department:employeeType. Populate with your organisation's departments and group names.",
+    "_comment": "ilm_access_map - Access mapping table. Key: department:employeeType. Populate with your organisation's departments and group names.",
     "_version": "1.0.0"
   },
   {

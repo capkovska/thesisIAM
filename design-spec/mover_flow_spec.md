@@ -1,4 +1,4 @@
-# JML-M: Mover Orchestrator — Flow Specification
+# JML-M: Mover Orchestrator - Flow Specification
 
 **Version:** 1.0.0  
 **Folder:** /ILM-Orchestrators/  
@@ -62,7 +62,7 @@ Reconciles a user's current access state with the target access state derived fr
 ### M-7: Update Okta profile attributes
 - **Helper:** UTL-4
 - **Action:** Write new `department`, `title`, `managerId`, `costCenter`, `location`, `ilm_accessPackage`
-- **Note:** Profile update is final step — confirms access state and identity record are consistent
+- **Note:** Profile update is final step - confirms access state and identity record are consistent
 
 ### M-8: Write evidence and close
 - **Helper:** SH-3

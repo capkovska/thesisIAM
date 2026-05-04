@@ -1,4 +1,4 @@
-# ILM Artefact Bundle — v1.0.0
+# ILM Artefact Bundle - v1.0.0
 
 **Thesis:** The low-code/no-code (LCNC) solution for identity lifecycle management using Okta Workflows  
 **Author:** Endija Dārija Čapkovska  
@@ -17,19 +17,19 @@ This artefact package is the deliverable described in Section 3.8 of the thesis.
 ## Directory structure
 
 ```
-/Design-Spec/       — Flow specifications, data model, attribute schema
-/Config-Templates/  — Workflows table definitions, approval matrix, payload schema
-/Build-Guide/       — Step-by-step build instructions and prerequisites checklist
-/Evaluation/        — Synthetic test dataset, test plan, traceability matrix, KPI definitions, sample evidence
-/Operations/        — Operational runbook, release and change checklist
+/Design-Spec/       - Flow specifications, data model, attribute schema
+/Config-Templates/  - Workflows table definitions, approval matrix, payload schema
+/Build-Guide/       - Step-by-step build instructions and prerequisites checklist
+/Evaluation/        - Synthetic test dataset, test plan, traceability matrix, KPI definitions, sample evidence
+/Operations/        - Operational runbook, release and change checklist
 ```
 
 ---
 
 ## Quick start
 
-1. Read `Build-Guide/prerequisites_checklist.md` — ensure your Okta tenant meets all prerequisites
-2. Follow `Build-Guide/build_guide.md` — build all flows in order (Utilities → Config → Helpers → ApprovalEngine → Orchestrators)
+1. Read `Build-Guide/prerequisites_checklist.md` - ensure your Okta tenant meets all prerequisites
+2. Follow `Build-Guide/build_guide.md` - build all flows in order (Utilities → Config → Helpers → ApprovalEngine → Orchestrators)
 3. Import `Config-Templates/ilm_access_map.json` and `Config-Templates/ilm_system_class.json` adapted to your organisation
 4. Run the pre-activation test cases from `Evaluation/test_plan.md` in your test tier
 5. Promote to production following `Operations/release_checklist.md`
@@ -51,4 +51,4 @@ This artefact package is the deliverable described in Section 3.8 of the thesis.
 
 | Version | Date | Notes |
 |---|---|---|
-| 1.0.0 | 2026-01-15 | Initial release — thesis submission |
+| 1.0.0 | 2026-01-15 | Initial release - thesis submission |

@@ -102,12 +102,12 @@ MTCR = COUNT(tasks closed on or before due_date)
 Run these queries monthly against `ilm_tx_log`:
 
 ```
-// T2P — all automated Joiner completions this month
+// T2P - all automated Joiner completions this month
 SELECT median(completedAt - createdAt), percentile90(completedAt - createdAt), max(completedAt - createdAt)
 FROM ilm_tx_log
 WHERE eventType = 'joiner' AND status = 'Completed' AND createdAt >= first_day_of_month
 
-// TCR — overall
+// TCR - overall
 SELECT COUNT(*) FILTER (WHERE status = 'Completed') / COUNT(*) * 100 AS tcr
 FROM ilm_tx_log
 WHERE createdAt >= first_day_of_month

@@ -15,13 +15,13 @@
 | FR1.4 | Baseline access assignment | JML-J J-4, ilm_access_map BL-* rows | TC-J-01 | Pass |
 | FR1.5 | Integrated + manual execution paths | JML-J J-7, SH-6, ilm_system_class | TC-J-01, TC-J-04 | Pass |
 | FR1.6 | Evidence record per Joiner transaction | SH-3, ilm_tx_log, ilm_evidence_archive | TC-J-01 | Pass |
-| FR2.1 | Mover — dual trigger | JML-M trigger config | TC-M-01, TC-M-05 | Pass |
+| FR2.1 | Mover - dual trigger | JML-M trigger config | TC-M-01, TC-M-05 | Pass |
 | FR2.2 | Attribute update | JML-M step M-7, UTL-4 | TC-M-01, TC-M-02 | Pass |
 | FR2.3 | Remove-before-add sequencing | JML-M steps M-5 before M-6 | TC-M-01 | Pass |
 | FR2.4 | Integrated + manual mover paths | JML-M M-5/M-6, SH-6 | TC-M-01 | Pass |
 | FR2.5 | Time-bound access | JML-M flags.expiryDate handling, ilm_exceptions | TC-M-05 | Pass |
 | FR2.6 | Evidence record per Mover | SH-3, EV-M-01…04 | TC-M-01 | Pass |
-| FR3.1 | Leaver — dual trigger + scheduling | JML-L L-1, UTL-2 | TC-L-01, TC-L-02 | Pass |
+| FR3.1 | Leaver - dual trigger + scheduling | JML-L L-1, UTL-2 | TC-L-01, TC-L-02 | Pass |
 | FR3.2 | Central suspension first | JML-L L-3 (priority step) | TC-L-01 | Pass |
 | FR3.3 | Session and token revocation | JML-L L-4, UTL-4 | TC-L-01 | Pass |
 | FR3.4 | Integrated + manual deprovisioning | JML-L L-5, L-6, SH-6 | TC-L-01 | Pass |
@@ -36,10 +36,10 @@
 | FR5.3 | Break-glass access | TC-A-04, ilm_system_class, SH-1 Critical tier | TC-A-04 | Pass |
 | FR5.4 | Exception workflow states | ilm_tx_log status values, CFG-3 | TC-J-06, TC-A-04 | Pass |
 | FR6.1 | Evidence package per transaction | SH-3, EV-J/M/L records in ilm_evidence_archive | TC-J-01, TC-M-01, TC-L-01 | Pass |
-| FR6.2 | Export formats (CSV, JSON) | ilm_tx_log export, ilm_evidence_archive export | — (inspection) | Pass |
+| FR6.2 | Export formats (CSV, JSON) | ilm_tx_log export, ilm_evidence_archive export | - (inspection) | Pass |
 | FR6.3 | Traceability chain (event → evidence) | txId in debugContext, dual-log design | TC-J-01 | Pass |
 
-*FR3.5 Partial: Group removal confirmed in Okta (initiates SCIM deprovisioning signal). Downstream licence removal in M365 not directly observable in sandbox — environmental constraint, not design deficiency.
+*FR3.5 Partial: Group removal confirmed in Okta (initiates SCIM deprovisioning signal). Downstream licence removal in M365 not directly observable in sandbox - environmental constraint, not design deficiency.
 
 ---
 
@@ -54,8 +54,8 @@
 | NFR2.1 | Full transaction traceability | ilm_tx_log + Okta System Log cross-ref by txId | TC-J-01, TC-L-01 | Pass |
 | NFR2.2 | Minimum evidence set per transaction | SH-3, EV-J/M/L records | All main TCs | Pass |
 | NFR2.3 | Evidence readable by governance stakeholders | ilm_evidence_archive CSV export | Practitioner review | Pass |
-| NFR3.1 | Idempotency — no duplicates on retry | UTL-4 existence checks; J-2 duplicate guard | TC-E-01, TC-E-03 | Pass |
-| NFR3.2 | Error handling — common failure modes | SH-7 retry/backoff, intervention queue, SH-2 alerts | TC-E-02 | Pass |
+| NFR3.1 | Idempotency - no duplicates on retry | UTL-4 existence checks; J-2 duplicate guard | TC-E-01, TC-E-03 | Pass |
+| NFR3.2 | Error handling - common failure modes | SH-7 retry/backoff, intervention queue, SH-2 alerts | TC-E-02 | Pass |
 | NFR3.3 | Consistent state on partial failure | Partial completion recoverable via re-invoke | TC-E-04 | Pass |
 | NFR4.1 | Timeliness KPIs measurable | Table 5.2, KPI-1/KPI-2 definitions | Test execution | Pass |
 | NFR4.2 | Scalable to 50 events/month | API call count per event ~10; well below rate limits | Performance analysis | Pass |

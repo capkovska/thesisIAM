@@ -10,7 +10,7 @@ This matrix maps system sensitivity tier to the required approval configuration.
 
 | approvalTier value | Approvers required | Approval SLA | Escalation SLA | Notes |
 |---|---|---|---|---|
-| `none` | None — automatic | — | — | Baseline access, low-risk automated systems |
+| `none` | None - automatic | - | - | Baseline access, low-risk automated systems |
 | `manager-only` | Direct manager | 24 hours | +24 hours to manager's manager | Default for Medium sensitivity |
 | `manager-and-owner` | Manager + Application owner | 48 hours | +24 hours each | High sensitivity systems |
 | `manager-and-security` | Manager + Security ops | 4 hours | Immediate escalation to CISO | Critical / privileged access |
@@ -21,10 +21,10 @@ This matrix maps system sensitivity tier to the required approval configuration.
 
 | Sensitivity tier | Default approvalTier | Override allowed? |
 |---|---|---|
-| Low | `none` | Yes — can require `manager-only` |
-| Medium | `manager-only` | Yes — can increase to `manager-and-owner` |
-| High | `manager-and-owner` | Yes — can increase to `manager-and-security` |
-| Critical | `manager-and-security` | No — minimum enforced |
+| Low | `none` | Yes - can require `manager-only` |
+| Medium | `manager-only` | Yes - can increase to `manager-and-owner` |
+| High | `manager-and-owner` | Yes - can increase to `manager-and-security` |
+| Critical | `manager-and-security` | No - minimum enforced |
 
 ---
 

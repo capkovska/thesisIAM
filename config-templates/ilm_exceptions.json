@@ -1,6 +1,6 @@
 [
   {
-    "_comment": "ilm_exceptions — Exception registry. Holds active exceptions that override normal routing logic. Pre-populated with examples using synthetic data.",
+    "_comment": "ilm_exceptions - Exception registry. Holds active exceptions that override normal routing logic. Pre-populated with examples using synthetic data.",
     "_version": "1.0.0"
   },
   {
@@ -24,7 +24,7 @@
     "notes": "Board member. All lifecycle actions require manager confirmation before execution."
   },
   {
-    "_example": "Break-glass access grant — time-limited",
+    "_example": "Break-glass access grant - time-limited",
     "employeeNumber": "EMP-0015",
     "exceptionType": "break-glass",
     "expiryDate": "2026-01-15T18:00:00Z",

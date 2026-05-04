@@ -1,4 +1,4 @@
-# JML-L: Leaver Orchestrator — Flow Specification
+# JML-L: Leaver Orchestrator - Flow Specification
 
 **Version:** 1.0.0  
 **Folder:** /ILM-Orchestrators/  
@@ -17,7 +17,7 @@ Deprovisiones a departing identity. Central account suspension is unconditionall
 | `eventType` | Yes | Must be `leaver` |
 | `eventSource` | Yes | `hris` or `itsm` |
 | `identity.employeeNumber` | Yes | |
-| `identity.endDate` | Yes | ISO 8601 date — determines immediate vs scheduled execution |
+| `identity.endDate` | Yes | ISO 8601 date - determines immediate vs scheduled execution |
 | `flags.urgent` | No | If true, bypass scheduled activation; execute immediately |
 
 ---
@@ -32,9 +32,9 @@ Deprovisiones a departing identity. Central account suspension is unconditionall
 
 ### L-2: Locate and verify identity
 - **Helper:** UTL-4
-- **Branch — Not found:** Write warning; alert ops; halt
-- **Branch — Already Deprovisioned:** Write `duplicate-leaver` note; halt cleanly
-- **Branch — Active or Suspended:** Continue
+- **Branch - Not found:** Write warning; alert ops; halt
+- **Branch - Already Deprovisioned:** Write `duplicate-leaver` note; halt cleanly
+- **Branch - Active or Suspended:** Continue
 
 ### L-3: Suspend central identity ⚠️ PRIORITY STEP
 - **Helper:** UTL-4

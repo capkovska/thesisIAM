@@ -5,7 +5,7 @@
 
 ---
 
-## Type 1 — Configuration table change (L2 — no flow redeployment)
+## Type 1 - Configuration table change (L2 - no flow redeployment)
 
 Applies to: adding/editing rows in `ilm_access_map`, `ilm_system_class`, `ilm_exceptions`
 
@@ -19,7 +19,7 @@ Applies to: adding/editing rows in `ilm_access_map`, `ilm_system_class`, `ilm_ex
 
 ---
 
-## Type 2 — Helper or utility flow change (L3 — requires test tier validation)
+## Type 2 - Helper or utility flow change (L3 - requires test tier validation)
 
 Applies to: any edit to flows in `/ILM-Helpers/`, `/ILM-Config/`, `/ILM-Utilities/`, `/ILM-ApprovalEngine/`
 
@@ -37,7 +37,7 @@ Applies to: any edit to flows in `/ILM-Helpers/`, `/ILM-Config/`, `/ILM-Utilitie
 
 ---
 
-## Type 3 — Orchestrator flow change (L3 — full test suite)
+## Type 3 - Orchestrator flow change (L3 - full test suite)
 
 Applies to: any edit to JML-J, JML-M, or JML-L
 
@@ -52,7 +52,7 @@ Applies to: any edit to JML-J, JML-M, or JML-L
 
 ---
 
-## Type 4 — Table schema change (requires migration)
+## Type 4 - Table schema change (requires migration)
 
 Applies to: adding/removing columns from any Workflows table
 

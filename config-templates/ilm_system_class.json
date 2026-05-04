@@ -1,6 +1,6 @@
 [
   {
-    "_comment": "ilm_system_class — System classification table. Drives approval routing, ITSM task generation, and critical systems check.",
+    "_comment": "ilm_system_class - System classification table. Drives approval routing, ITSM task generation, and critical systems check.",
     "_version": "1.0.0",
     "_artefact_version": "1.0.0"
   },

@@ -123,6 +123,6 @@ Key: `txId`
 | `resolutionNote` | String | Operator note on resolution |
 
 ### ilm_evidence_archive
-Key: `txId` — **append-only; never updated after initial write**
+Key: `txId` - **append-only; never updated after initial write**
 
 Same schema as `ilm_tx_log`. One row written per transaction at terminal state. Used for audit export only.

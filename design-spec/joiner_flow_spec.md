@@ -1,4 +1,4 @@
-# JML-J: Joiner Orchestrator — Flow Specification
+# JML-J: Joiner Orchestrator - Flow Specification
 
 **Version:** 1.0.0  
 **Folder:** /ILM-Orchestrators/  
@@ -38,14 +38,14 @@ See Appendix B / `hris_webhook_payload_schema.json` for the full schema.
 ### J-1: Validate and normalise
 - **Helper called:** SH-4
 - **Action:** Validate all required fields; normalise `department` to canonical form matching `ilm_access_map`; derive `displayName`
-- **On failure:** Write `Clarification-required` to `ilm_tx_log`; call SH-2 to notify HR ops; halt — no Okta user created
+- **On failure:** Write `Clarification-required` to `ilm_tx_log`; call SH-2 to notify HR ops; halt - no Okta user created
 
 ### J-2: Duplicate check
 - **Helper called:** UTL-4
 - **Action:** Query Okta UD for user with matching `employeeNumber`
-- **Branch — Not found:** Continue to J-3
-- **Branch — Suspended (re-hire):** Update profile from new payload; clear existing groups; reactivate account; log `eventSource: rehire`; skip to J-4
-- **Branch — Active (duplicate):** Write `Duplicate-detected` error; alert ops team; halt
+- **Branch - Not found:** Continue to J-3
+- **Branch - Suspended (re-hire):** Update profile from new payload; clear existing groups; reactivate account; log `eventSource: rehire`; skip to J-4
+- **Branch - Active (duplicate):** Write `Duplicate-detected` error; alert ops team; halt
 
 ### J-3: Create Okta user
 - **Helper called:** UTL-4

@@ -53,11 +53,11 @@ Navigate to **Directory → Profile Editor → User (default)**. Add the followi
 
 ### 1.4 Create Okta groups
 
-Create all groups listed in `Config-Templates/group_inventory.md` (Appendix C of the thesis). Ensure group names match exactly — they are case-sensitive in API calls.
+Create all groups listed in `Config-Templates/group_inventory.md` (Appendix C of the thesis). Ensure group names match exactly - they are case-sensitive in API calls.
 
 ### 1.5 Create Workflows tables
 
-In the Workflows console, navigate to **Tables** and create six tables with the following names. Leave them empty for now — they will be populated in Part 3.
+In the Workflows console, navigate to **Tables** and create six tables with the following names. Leave them empty for now - they will be populated in Part 3.
 
 - `ilm_access_map`
 - `ilm_system_class`
@@ -70,11 +70,11 @@ Refer to `Design-Spec/data_model_and_attribute_schema.md` for the column definit
 
 ---
 
-## Part 2 — Build flows (folder by folder)
+## Part 2 - Build flows (folder by folder)
 
 ### Folder: /ILM-Utilities/
 
-Build these first — they are called by everything else and have no dependencies.
+Build these first - they are called by everything else and have no dependencies.
 
 #### UTL-1: Username generator
 **Purpose:** Derives Okta `login` from `firstName` and `lastName`.
@@ -94,7 +94,7 @@ Build these first — they are called by everything else and have no dependencie
 
 1. Create flow named `UTL-2 Date formatter and SLA calculator`
 2. Trigger: **Helper Flow**
-3. Inputs: `inputDate` (Text), `slaHours` (Number), `action` (Text — values: `parse`, `addHours`, `isToday`, `isFuture`)
+3. Inputs: `inputDate` (Text), `slaHours` (Number), `action` (Text - values: `parse`, `addHours`, `isToday`, `isFuture`)
 4. Logic: Use **Date & Time** cards:
    - `parse`: **Text → Date** on `inputDate`; output `parsedDate`
    - `addHours`: **Date → Add time** (slaHours × 3600 seconds); output `dueDate`
@@ -118,7 +118,7 @@ Build these first — they are called by everything else and have no dependencie
 
 1. Create flow named `UTL-4 Okta API wrapper`
 2. Trigger: **Helper Flow**
-3. Inputs: `action` (Text — values: `createUser`, `updateUser`, `suspendUser`, `deactivateUser`, `addToGroup`, `removeFromGroup`, `removeAllGroups`, `revokeTokens`, `getUser`, `getGroups`), plus action-specific fields (`userId`, `groupId`, `profile`, etc.)
+3. Inputs: `action` (Text - values: `createUser`, `updateUser`, `suspendUser`, `deactivateUser`, `addToGroup`, `removeFromGroup`, `removeAllGroups`, `revokeTokens`, `getUser`, `getGroups`), plus action-specific fields (`userId`, `groupId`, `profile`, etc.)
 4. For each action, use the corresponding **Okta** connector card from the `ILM-Service-Connection`:
    - `createUser` → **Okta → Create User**; before creating, call `getUser` to check for existing `employeeNumber` (idempotency)
    - `suspendUser` → **Okta → Suspend User**; guard with status check first
@@ -200,7 +200,7 @@ Build these first — they are called by everything else and have no dependencie
 #### SH-7: Error handler and retry coordinator
 1. Create flow `SH-7 Error handler retry`
 2. Trigger: **Helper Flow**
-3. Inputs: `flowName`, `cardName`, `txId`, `retryCount` (Number), `maxRetries` (Number — default 3), `baseDelaySeconds` (Number — default 10)
+3. Inputs: `flowName`, `cardName`, `txId`, `retryCount` (Number), `maxRetries` (Number - default 3), `baseDelaySeconds` (Number - default 10)
 4. Logic:
    - If `retryCount` < `maxRetries`: **Flow Control → Wait** for `baseDelaySeconds * (2 ^ retryCount)` seconds; increment `retryCount`; output `shouldRetry = true`
    - If `retryCount` >= `maxRetries`: Write to `ilm_intervention_queue` via **Tables → Create Row**; call SH-2 with `severity=critical`; output `shouldRetry = false`
@@ -222,7 +222,7 @@ Build these first — they are called by everything else and have no dependencie
 3. Inputs: All `ilm_tx_log` fields (pass full transaction object)
 4. Logic:
    - **UTL-3** to update `ilm_tx_log` row (upsert)
-   - **Tables → Create Row** on `ilm_evidence_archive` (insert only — never upsert; this maintains append-only integrity)
+   - **Tables → Create Row** on `ilm_evidence_archive` (insert only - never upsert; this maintains append-only integrity)
 5. Save.
 
 ---
@@ -243,7 +243,7 @@ Build these first — they are called by everything else and have no dependencie
 
 #### SH-1a: Callback handler
 1. Create flow `SH-1a Approval callback handler`
-2. Trigger: **API Endpoint** (HTTP POST — this is the inbound webhook from ITSM)
+2. Trigger: **API Endpoint** (HTTP POST - this is the inbound webhook from ITSM)
 3. Inputs from webhook body: `txId`, `approverItsm`, `decision` (approved/rejected), `itemId`
 4. Logic:
    - **Tables → Search Rows** on `ilm_tx_log` to validate `txId` is in `Pending-approval` state
@@ -258,7 +258,7 @@ Build these first — they are called by everything else and have no dependencie
 2. Trigger: **Scheduled** (registered dynamically by SH-1)
 3. Inputs: `txId`, `approvalTier`, `escalationPolicy` (escalate/reject)
 4. Logic:
-   - Check if `ilm_tx_log` row for `txId` is still in `Pending-approval`; if not (already resolved) — exit cleanly
+   - Check if `ilm_tx_log` row for `txId` is still in `Pending-approval`; if not (already resolved) - exit cleanly
    - If `escalationPolicy = escalate`: re-route approval request to approver's manager; reset SLA clock; call SH-2 with warning
    - If `escalationPolicy = reject`: write `timeout` to transaction; call Workflows Resume API with all items set to `rejected`; call SH-2 with critical alert
 5. Save.
@@ -283,7 +283,7 @@ Follow the step-by-step logic in `Design-Spec/joiner_flow_spec.md`. Key card seq
 11. **For Each** approved group: **Call Flow** UTL-4 (addToGroup)
 12. **For Each** manual system: **Call Flow** SH-6 (create ITSM task)
 13. **Call Flow** SH-3 (write evidence)
-14. **Call Flow** UTL-4 (updateUser — set ilm_* attributes)
+14. **Call Flow** UTL-4 (updateUser - set ilm_* attributes)
 
 Activate after full build and test tier validation.
 
@@ -296,11 +296,11 @@ Follow `Design-Spec/mover_flow_spec.md`. Key additions vs Joiner:
 #### JML-L: Leaver orchestrator
 Follow `Design-Spec/leaver_flow_spec.md`. Key note:
 - Step L-3 (suspend) must be placed **before** any ITSM task generation or downstream calls
-- Use **Error Handler** around L-3 with immediate retry (no backoff) — this step must not silently fail
+- Use **Error Handler** around L-3 with immediate retry (no backoff) - this step must not silently fail
 
 ---
 
-## Part 3 — Populate configuration tables
+## Part 3 - Populate configuration tables
 
 Import the JSON files from `Config-Templates/` into the corresponding Workflows tables using **Tables → Import CSV** (convert JSON to CSV first) or via the Workflows API.
 
@@ -311,20 +311,20 @@ Order:
 
 ---
 
-## Part 4 — Activation sequence
+## Part 4 - Activation sequence
 
 Activate flows in this order to avoid broken references:
 
 1. All UTL-* flows
 2. All CFG-* flows  
 3. SH-4, SH-5, SH-6, SH-7, SH-2, SH-3
-4. SH-1a (approval callback — must be active before SH-1)
+4. SH-1a (approval callback - must be active before SH-1)
 5. SH-1, SH-1b
 6. JML-J, JML-M, JML-L
 
 ---
 
-## Part 5 — Pre-activation test checklist
+## Part 5 - Pre-activation test checklist
 
 Run these tests in the test tier before activating in production:
 

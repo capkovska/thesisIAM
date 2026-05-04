@@ -1,4 +1,4 @@
-# Test Plan — ILM Artefact v1.0.0
+# Test Plan - ILM Artefact v1.0.0
 
 **Version:** 1.0.0  
 **Test environment:** Okta developer sandbox + ServiceNow developer instance  
@@ -86,7 +86,7 @@
 
 ## TC-J-04: Manual application path
 
-**Identity:** EMP-0004 (Sales — includes LegacyApp-Manual in system class)
+**Identity:** EMP-0004 (Sales - includes LegacyApp-Manual in system class)
 
 **Expected outcomes:**
 - [ ] Automated groups assigned normally
@@ -218,7 +218,7 @@
 
 ## TC-L-04: Critical system ITSM task overdue
 
-**Identity:** EMP-0013 (has ERP-Finance-Posting access — Critical)
+**Identity:** EMP-0013 (has ERP-Finance-Posting access - Critical)
 
 **Steps:**
 1. Submit Leaver payload

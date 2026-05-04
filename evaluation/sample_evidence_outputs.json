@@ -1,5 +1,5 @@
 {
-  "_comment": "Sample evidence outputs — v1.0.0. Synthetic data only. Represents the structure of ilm_evidence_archive rows for the three primary test scenarios.",
+  "_comment": "Sample evidence outputs - v1.0.0. Synthetic data only. Represents the structure of ilm_evidence_archive rows for the three primary test scenarios.",
 
   "joiner_evidence_EV_J_01_to_05": {
     "txId": "txn-j-00000001",
@@ -50,7 +50,7 @@
     "completedAt": "2026-02-03T10:46:33Z",
     "evidenceRecords": {
       "EV-M-01": {"type": "hris_change_payload", "source": "HRIS webhook", "previousDepartment": "Finance", "newDepartment": "Engineering", "receivedAt": "2026-02-03T10:14:01Z"},
-      "EV-M-02": {"type": "access_delta", "source": "Workflows execution — SH-5", "toAdd": 7, "toRemove": 3, "retained": 0, "calculatedAt": "2026-02-03T10:14:06Z"},
+      "EV-M-02": {"type": "access_delta", "source": "Workflows execution - SH-5", "toAdd": 7, "toRemove": 3, "retained": 0, "calculatedAt": "2026-02-03T10:14:06Z"},
       "EV-M-03": {"type": "group_membership_change", "source": "Okta System Log", "removalsCompletedAt": "2026-02-03T10:44:12Z", "additionsCompletedAt": "2026-02-03T10:44:58Z"},
       "EV-M-04": {"type": "old_access_revocation", "source": "Okta System Log + ilm_tx_log", "groupsRevoked": 3, "allRevokedBeforeNewAccessAdded": true}
     }
