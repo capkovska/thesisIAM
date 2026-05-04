@@ -1,0 +1,100 @@
+[
+  {
+    "_comment": "ilm_system_class — System classification table. Drives approval routing, ITSM task generation, and critical systems check.",
+    "_version": "1.0.0",
+    "_artefact_version": "1.0.0"
+  },
+  {
+    "systemName": "Okta-SSO",
+    "integrationMethod": "scim",
+    "sensitivityTier": "Medium",
+    "appOwnerItsm": "iam-team",
+    "provisionSla": 1,
+    "deprovisionSla": 1,
+    "isCritical": false,
+    "approvalTier": "none"
+  },
+  {
+    "systemName": "ActiveDirectory-BaseGroups",
+    "integrationMethod": "ad",
+    "sensitivityTier": "Medium",
+    "appOwnerItsm": "iam-team",
+    "provisionSla": 2,
+    "deprovisionSla": 1,
+    "isCritical": false,
+    "approvalTier": "manager-only"
+  },
+  {
+    "systemName": "Microsoft365-Email",
+    "integrationMethod": "scim",
+    "sensitivityTier": "Low",
+    "appOwnerItsm": "it-ops",
+    "provisionSla": 1,
+    "deprovisionSla": 1,
+    "isCritical": false,
+    "approvalTier": "none"
+  },
+  {
+    "systemName": "ITSM-ServiceDesk",
+    "integrationMethod": "scim",
+    "sensitivityTier": "Medium",
+    "appOwnerItsm": "it-ops",
+    "provisionSla": 4,
+    "deprovisionSla": 2,
+    "isCritical": false,
+    "approvalTier": "manager-only"
+  },
+  {
+    "systemName": "ERP-Finance-ReadOnly",
+    "integrationMethod": "scim",
+    "sensitivityTier": "High",
+    "appOwnerItsm": "finance-app-owner",
+    "provisionSla": 24,
+    "deprovisionSla": 4,
+    "isCritical": true,
+    "approvalTier": "manager-and-owner"
+  },
+  {
+    "systemName": "ERP-Finance-Posting",
+    "integrationMethod": "manual",
+    "sensitivityTier": "Critical",
+    "appOwnerItsm": "finance-app-owner",
+    "provisionSla": 48,
+    "deprovisionSla": 2,
+    "isCritical": true,
+    "approvalTier": "manager-and-security"
+  },
+  {
+    "systemName": "CRM-Standard",
+    "integrationMethod": "scim",
+    "sensitivityTier": "Medium",
+    "appOwnerItsm": "sales-app-owner",
+    "provisionSla": 8,
+    "deprovisionSla": 4,
+    "isCritical": false,
+    "approvalTier": "manager-only"
+  },
+  {
+    "systemName": "CloudConsole-Admin",
+    "integrationMethod": "manual",
+    "sensitivityTier": "Critical",
+    "appOwnerItsm": "cloud-platform-owner",
+    "provisionSla": 48,
+    "deprovisionSla": 2,
+    "isCritical": true,
+    "approvalTier": "manager-and-security"
+  },
+  {
+    "systemName": "LegacyApp-Manual",
+    "integrationMethod": "manual",
+    "sensitivityTier": "Medium",
+    "appOwnerItsm": "legacy-app-owner",
+    "provisionSla": 24,
+    "deprovisionSla": 24,
+    "isCritical": false,
+    "approvalTier": "manager-only"
+  },
+  {
+    "_comment": "Add additional systems following the same structure. integrationMethod must be one of: scim, ad, manual."
+  }
+]
