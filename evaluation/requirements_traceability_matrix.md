@@ -9,7 +9,7 @@
 
 | Req ID | Description (summary) | Implemented in | Test case(s) | Verdict |
 |---|---|---|---|---|
-| FR1.1 | Joiner — dual trigger (HRIS + ITSM) | JML-J steps J-1, trigger config | TC-J-01, TC-J-05 | Pass |
+| FR1.1 | Joiner - dual trigger (HRIS + ITSM) | JML-J steps J-1, trigger config | TC-J-01, TC-J-05 | Pass |
 | FR1.2 | Create or activate identity | JML-J steps J-2, J-3 | TC-J-01, TC-J-02 | Pass |
 | FR1.3 | Attribute validation + normalisation | SH-4, JML-J J-1 | TC-J-01 (positive), TC-E-01 (negative) | Pass |
 | FR1.4 | Baseline access assignment | JML-J J-4, ilm_access_map BL-* rows | TC-J-01 | Pass |
