@@ -1,0 +1,41 @@
+FR1: Set up joiner (make a user, add attributes, and assign them to a group or app)
+FR1.1 The solution must support joiner initiation from HRIS-driven events (default path) and ITSM-driven joiner requests (exception path). In both cases, it must produce consistent outcomes and evidence.
+FR1.2 When a valid joiner event happens, the solution must either create a new identity in the central identity platform (directory/IdP) or activate an identity that has already been created. It must also make sure that the identity has a unique identifier and all the core attributes it needs.
+FR1.3 The solution must map and use the required attributes, which are the minimum set defined in the configuration. Some examples of these are: legal name/display name, email/username, employee/contractor type, department/team, manager, location/time zone, start date, and lifecycle status. If an attribute is missing or wrong, the solution should send the request to a "clarification required" state.
+FR1.4 According to company rules (for instance, the MFA policy group and baseline collaboration access), the solution should assign baseline security and productivity access (for example, baseline groups/policies).
+FR1.5 The solution must let users access the requested applications through one of two execution paths:
+•	Integrated/central path: app assignment through centrally managed group/app assignment logic (if available).
+•	Manual path: creating structured manual sub-tasks for systems that aren't integrated, along with the necessary confirmation and evidence capture.
+FR1.6 The solution must add the following to the lifecycle record (or ticket):
+•	status (completed, pending manual tasks, or failed), 
+•	timestamps, 
+•	a summary of the changes made, 
+•	and the required evidence references.
+FR2: Changes to the mover, such as changes to their role or group or updates to their attributes. 
+FR2.1 The solution should support mover initiation from changes to attributes driven by HRIS (like department, team, manager, or location) and/or requests for access changes driven by ITSM.
+FR2.2 The solution will change identity attributes in the central identity platform based on approved changes and defined mapping rules. This includes validation, such as checking that values are allowed and fields are required.
+FR2.3 For mover scenarios, the solution should support removing old access and adding new access, with a clear order so that old access doesn't stay around by accident.
+FR2.4 The mover process should support both integrated/central updates (group/app changes made centrally) and manual sub-tasks for systems that are not centrally integrated, just like joiners.
+FR2.5 When a mover request includes temporary access, the solution must support either a time-limited assignment (if technically possible) or a controlled manual expiration/removal task with reminders and proof requirements.
+FR2.6 The solution must keep track of the exact changes made (added/removed access), the approvals used, the timestamps and final status, and the evidence references (exports/logs or ticket trail) so that privilege changes can be reconstructed without having to manually link them across systems.
+FR3 Leaver deprovisioning (disabling, revoking tokens/sessions, removing access, and licensing)
+FR3.1 The solution must support leaver initiation from HRIS or ITSM and be able to handle both immediate deprovisioning (urgent termination) and scheduled deprovisioning (future end date). The solution should automatically start deprovisioning at the right time if it is scheduled (or create an operational trigger with clear responsibility).
+FR3.2 When the leaver is executed, the solution should first disable the identity in the central identity platform (directory/IdP) and then record the time of the disablement as proof of the audit.
+FR3.3 To lower the risk of leftover access, the solution should cancel active sessions and authentication tokens if the platform and integrations allow it.
+FR3.4 The solution should stop people from using apps by using integrated or central deprovisioning when possible, and manual removal tasks when integrations are missing. These tasks should include confirmation and evidence capture for manual removals.
+FR3.5 The solution should try to automatically remove licenses and entitlements when possible, and if not, it should make it clear what steps need to be taken to make sure that licenses and privileged entitlements are always removed.
+FR3.6 The solution must have a validation step for a set of "critical systems" that has been set up. If residual access is found (or can not be confirmed), the solution should create remediation tasks and keep the leaver process in a non-final state until the problem is fixed or formally accepted as an exception.
+FR4 Request for access and approval
+FR4.1 The solution must allow for customizable approval paths depending on the target system and type of access. For example, there could be manager-only approval for low-risk access, manager and application owner approval for systems with delegated ownership, manager and security approval for privileged/high-risk access, and combinations of these when appropriate.
+FR4.2 The solution must not make changes to access until all the necessary approvals have been received and recorded. If approvals are denied, the request will be closed with a clear reason for the denial and proof that it was denied.
+FR4.3 The solution should support separating the steps of requesting and approving from carrying them out whenever possible. For example, approvals should be logged before execution, and execution should be done by controlled automation or authorized operators.
+FR4.4 At the very least, approval evidence must include the name and role of the approver (for example, manager, app owner, or security), the time the approval was given, the scope of what was approved (apps, groups, or roles), and any notes about exceptions.
+FR5 Exceptions (VIPs, contractors, and break-glass) 
+FR5.1 The solution must support non-employee identities (like contractors) with clear end dates and lifecycle status tracking, limited baseline access policies (that can be changed), and required review and expiration controls.
+FR5.2 The solution must have a "VIP/special handling" classification that allows for stronger approval requirements, limits certain automated actions (like requiring confirmation before removal or grant), and records more evidence.
+FR5.3 The answer must include a controlled emergency access mechanism with clear labelling as "break-glass," strong approval and/or security oversight (as policy requires), time-limited access with mandatory expiration/removal, and better logging/evidence capture.
+FR5.4 Explicit workflow states, such as "exception approval required," "manual verification required," and "risk accepted," should be used to route exception cases. This makes sure that exceptions are visible and can be checked, rather than being handled informally.
+FR6 Reporting/export for proof of audit
+FR6.1 The solution must create or define an evidence package for each joiner/mover/leaver transaction. This package must include the initiation source (HRIS/ITSM) and timestamp, approvals and timestamps, identity and access changes made (groups/apps/roles), completion status and timestamps, and failure/exception records and remediation actions (if any).
+FR6.2 The solution must be able to export evidence in a way that is useful for audits and access reviews (for example, tables that work with CSV, JSON, and PDF), such as monthly or quarterly summaries of volume, completion rates, and exception rates, as well as time-to-access and time-to-revoke metrics (where possible) and outstanding manual tasks and exceptions that haven't been resolved.
+FR6.3 Reports should make it possible to follow the trail from a lifecycle event to the evidence sources (ticket IDs, logs, exports). It should be possible to change or document how long evidence should be kept as part of operational guidance.
