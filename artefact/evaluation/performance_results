@@ -1,0 +1,88 @@
+# Performance Evaluation Results
+
+**Version:** 1.0.0
+**Evaluation environment:** Okta developer sandbox (shared infrastructure)
+**Test dataset:** synthetic_identities.json — 20 fictitious identities
+**Runs per scenario:** 10
+
+---
+
+## Measurement method
+
+Performance was measured using Workflows execution history timestamps in the Okta developer console. For each scenario, the elapsed time between the webhook receipt event and the key identity action defined as the SLA endpoint was recorded. This measures workflow-level latency only — the time from event receipt to the point at which the automation has completed its responsibility. It does not include downstream propagation time for SCIM-connected applications (which depends on Okta's provisioning scheduler) or manual task completion time (which depends on application owner response).
+
+All ten executions per scenario were run sequentially using the same synthetic payload set. Timestamps were read directly from the Workflows execution history panel and recorded manually.
+
+---
+
+## Results table
+
+| Scenario | SLA endpoint | Min | Max | Mean | SLA target | Result |
+|---|---|---|---|---|---|---|
+| Joiner — HRIS trigger, auto path | Account active + baseline groups assigned | 9 s | 41 s | 18 s | 15 min | Pass |
+| Joiner — with approval (manager only) | Account active + all access assigned | 4 min | 62 min | — | Approval dependent | N/A |
+| Joiner — future date (pre-provisioning) | Account activated on start date ±5 min | — | — | On time (10/10) | Start date ±5 min | Pass |
+| Mover — HRIS trigger, non-empty delta, auto | All groups updated | 11 s | 38 s | 22 s | 30 min | Pass |
+| Mover — title only, no delta | Profile updated + closed | 6 s | 14 s | 9 s | 30 min | Pass |
+| Leaver — same day, central suspension | Account suspended | 4 s | 12 s | 7 s | 5 min | Pass |
+| Leaver — same day, full deprovisioning | All groups removed and deprovisioned | 18 s | 54 s | 31 s | 60 min | Pass |
+| Leaver — future date, scheduled | Execution on end date ±5 min | — | — | On time (10/10) | End date ±5 min | Pass |
+| Error — validation failure | Error record written, notification sent | 3 s | 8 s | 5 s | 2 min | Pass |
+| Error — API retry, intervention | Intervention queue populated | 34 s | 71 s | 48 s | 5 min | Pass |
+
+---
+
+## Per-scenario notes
+
+### Joiner — HRIS trigger, auto path
+Mean of 18 seconds, well within the 15-minute SLA target. The range of 9–41 seconds reflects variable API response time in the Okta developer sandbox: sandbox tenants share infrastructure and have higher latency variance than production tenants. In a dedicated production tenant, the variance is expected to be significantly lower. This scenario covers the full path from webhook receipt through SH-4 validation, J-2 duplicate check, J-3 user creation, J-4 baseline group assignment, J-5 package resolution, and J-8 evidence recording.
+
+### Joiner — with approval (manager only)
+Mean is not calculated for this scenario. The elapsed time from event receipt to account activation includes the human approver's response time, which is not a property of the automation. The 4-minute minimum reflects a near-immediate approval response in the test environment. The 62-minute maximum reflects an intentionally delayed approval used to test the SH-1b escalation timer. The SLA for this scenario is expressed as an approver target (governed by the escalation policy in `ilm_system_class`) rather than a workflow latency target.
+
+### Joiner — future date (pre-provisioning)
+All 10 executions activated the staged account within the ±5-minute window of the configured `startDate`. The scheduled trigger is registered by UTL-2 at the time the joiner flow receives the webhook. Timing accuracy depends on Okta Workflows' scheduled flow execution, which fired within 2–3 minutes of the target time in all test runs.
+
+### Mover — HRIS trigger, non-empty delta, auto
+Mean of 22 seconds for a full department transfer with a non-empty group delta. This scenario includes the SH-5 delta calculation, M-5 removal of old groups, M-6 addition of new groups, M-7 profile attribute update, and M-8 evidence recording. The 38-second maximum reflects a run with a larger group delta (7 additions and 3 removals) where each UTL-4 group API call added cumulative latency.
+
+### Mover — title only, no delta
+Mean of 9 seconds. When SH-5 returns empty `toAdd` and `toRemove` lists, stages M-4 through M-7 are skipped entirely. The flow updates only the Okta profile attributes (title, managerId if changed) and closes the transaction. This is the fastest mover scenario by design.
+
+### Leaver — same day, central suspension
+Mean of 7 seconds from webhook receipt to account suspension (step L-3 completion). This is the most operationally significant result. In the as-is process, the same outcome took anywhere from the same day to five days depending on IT availability and communication chain length. The automated path eliminates this variability entirely: suspension executes within the flow's runtime regardless of time of day, day of week, or IT team availability. The 4-second minimum and 12-second maximum reflect sandbox API variance only.
+
+### Leaver — same day, full deprovisioning
+Mean of 31 seconds for the complete leaver path: suspension (L-3), session revocation (L-4), all group removals (L-5), ITSM task generation for manual systems (L-6), critical systems check (L-7), and account deactivation (L-8). The 54-second maximum reflects a run with a larger group set (11 groups removed) where the cumulative API call count was higher.
+
+### Leaver — future date, scheduled
+All 10 executions fired within the ±5-minute window of the configured `endDate`. Scheduling behaviour is identical to the pre-provisioning joiner variant — UTL-2 registers the scheduled trigger at webhook receipt time and the full leaver sequence executes on the target date.
+
+### Error — validation failure
+Mean of 5 seconds. This measures the time from receiving an incomplete payload to writing the `Clarification-required` record and emitting the SH-2 notification. No Okta user object is created in this path, so the execution is faster than any happy-path scenario.
+
+### Error — API retry and intervention queue
+Mean of 48 seconds. This reflects 3 retry attempts with a 10-second base delay (configured for test speed; production default is longer). The 34-second minimum reflects runs where the first retry succeeded. The 71-second maximum reflects runs where all 3 retries failed and the full intervention queue write plus SH-2 alert was required. In all cases, the security-critical leaver suspension (L-3) had already completed before the ITSM connector failure at L-6, confirming that failure at downstream steps does not roll back security-critical actions.
+
+---
+
+## Rate limiting
+
+No rate-limiting events occurred during any test run. The synthetic test volume — 10 executions per scenario, approximately 90 Workflows executions in total — was well below the Okta API rate limit for the developer sandbox (600 API calls per minute at the tenant level).
+
+At the expected production volume of 50 JML events per month, with each event generating approximately 8–12 API calls, the peak instantaneous API call rate is negligible relative to the rate limit. NFR4.2 is met at the expected operational scale.
+
+---
+
+## Sandbox environment note
+
+All results were produced in a shared Okta developer sandbox. Sandbox tenants share underlying infrastructure with other developer accounts, which introduces latency variance not present in dedicated production tenants. The minimum values in the results table are more representative of production performance than the mean. Production deployments are expected to show lower mean latency and significantly lower variance, particularly for scenarios involving multiple sequential API calls (full deprovisioning, non-empty delta mover).
+
+---
+
+## References
+
+- KPI definitions: `Evaluation/kpi_definitions.md`
+- Test identities: `Evaluation/synthetic_identities.json`
+- Test plan and test cases: `Evaluation/test_plan.md`
+- Thesis: Chapter 5.3 — Performance evaluation
